@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
@@ -28,7 +29,7 @@ const protectedRoutes = require('./routes/protectedRoutes');
 const journalRoutes = require('./routes/journalRoutes');
 const moodRoutes = require('./routes/moodRoutes');
 const adminRoutes = require('./routes/admin');
-const helmet = require('helmet');
+
 
 // Use routes
 app.use('/api/auth', authRoutes);
