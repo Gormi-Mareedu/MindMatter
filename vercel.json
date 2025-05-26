@@ -1,0 +1,10 @@
+{
+  "projects": {
+    "frontend": {
+      "rootDirectory": "client"
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
