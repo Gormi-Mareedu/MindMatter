@@ -12,7 +12,7 @@ const JournalList = ({ refreshTrigger }) => {
     const fetchJournals = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/journals', {
+        const res = await axios.get('https://mindmatter-backend.onrender.com/api/journals', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setJournals(res.data);
@@ -28,7 +28,7 @@ const JournalList = ({ refreshTrigger }) => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/journals/${id}`, {
+      await axios.delete(`https://mindmatter-backend.onrender.com/api/journals/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setJournals(journals.filter((j) => j._id !== id));
@@ -52,7 +52,7 @@ const JournalList = ({ refreshTrigger }) => {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.put(
-        `http://localhost:5000/api/journals/${id}`,
+        `https://mindmatter-backend.onrender.com/api/journals/${id}`,
         { title: editTitle, content: editContent },
         { headers: { Authorization: `Bearer ${token}` } }
       );

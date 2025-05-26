@@ -13,7 +13,7 @@ const MoodTracker = () => {
   const fetchMoodHistory = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/moods', {
+      const res = await axios.get('https://mindmatter-backend.onrender.com/api/moods', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMoodHistory(res.data);
@@ -32,7 +32,7 @@ const MoodTracker = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        'http://localhost:5000/api/moods',
+        'https://mindmatter-backend.onrender.com/api/moods',
         { mood, note, date: new Date() },
         { headers: { Authorization: `Bearer ${token}` } }
       );

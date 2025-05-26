@@ -15,7 +15,7 @@ const JournalForm = ({ onJournalCreated }) => {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
-        'http://localhost:5000/api/journals',
+        'https://mindmatter-backend.onrender.com/api/journals',
         { title, content },
         {
           headers: { Authorization: `Bearer ${token}` },
