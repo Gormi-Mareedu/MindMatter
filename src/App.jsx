@@ -8,7 +8,7 @@ import MoodTracker from './components/MoodTracker';
 import Resources from './components/Resources';
 import MoodInsights from './components/MoodInsights';
 import AdminDashboard from './pages/AdminDashboard';
-import PrivateRoute from './components/PrivateRoute'; // <-- import here
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,12 +18,21 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      const { exp } = JSON.parse(atob(token.split('.')[1]));
-      if (Date.now() >= exp * 1000) {
+      try {
+        const base64Payload = token.split('.')[1];
+        const decodedPayload = JSON.parse(atob(base64Payload));
+        const { exp } = decodedPayload;
+
+        if (Date.now() >= exp * 1000) {
+          localStorage.removeItem('token');
+          setIsLoggedIn(false);
+        } else {
+          setIsLoggedIn(true);
+        }
+      } catch (err) {
+        console.error('Invalid token:', err);
         localStorage.removeItem('token');
         setIsLoggedIn(false);
-      } else {
-        setIsLoggedIn(true);
       }
     }
   }, []);
