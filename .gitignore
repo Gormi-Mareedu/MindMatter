@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Env files
+.env
+
+# Logs
+npm-debug.log*
+
+# OS files
+.DS_Store
+
+# Build folders
+client-react/build
+
+# Optional
+.vscode/
