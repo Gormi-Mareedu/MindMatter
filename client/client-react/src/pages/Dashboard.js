@@ -23,15 +23,6 @@ function Dashboard() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
-  // 🔐 Protect route
-  useEffect(() => {
-  if (!token) {
-    alert("Please login first");
-    navigate("/");
-  } else {
-    fetchMoods();
-  }
-}, [token, navigate, fetchMoods]);
 
   // ================= MOODS =================
 
@@ -45,6 +36,16 @@ function Dashboard() {
     console.log(error);
   }
 }, [token]);
+
+  // 🔐 Protect route
+  useEffect(() => {
+  if (!token) {
+    alert("Please login first");
+    navigate("/");
+  } else {
+    fetchMoods();
+  }
+}, [token, navigate, fetchMoods]);
 
   const addMood = async () => {
     if (!mood.trim()) return alert("Mood cannot be empty");
