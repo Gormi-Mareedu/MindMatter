@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Pie, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 
-const API_URL = "https://mindmatter-jzke.onrender.com/";
+const API_URL = "https://mindmatter-jzke.onrender.com";
 
 function Dashboard() {
   const [mood, setMood] = useState("");
@@ -27,24 +27,27 @@ function Dashboard() {
   // ================= MOODS =================
 
   const fetchMoods = useCallback(async () => {
+  if (!token) return;
+
   try {
     const res = await axios.get(`${API_URL}/getMoods`, {
       headers: { Authorization: token },
     });
     setMoods(res.data);
   } catch (error) {
-    console.log(error);
+    console.log("Fetch error:", error);
   }
 }, [token]);
 
   // 🔐 Protect route
-  useEffect(() => {
+useEffect(() => {
   if (!token) {
     alert("Please login first");
     navigate("/");
-  } else {
-    fetchMoods();
+    return;
   }
+
+  fetchMoods();
 }, [token, navigate, fetchMoods]);
 
   const addMood = async () => {
