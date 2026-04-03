@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Pie, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://mindmatter-jzke.onrender.com/";
 
 function Dashboard() {
   const [mood, setMood] = useState("");
