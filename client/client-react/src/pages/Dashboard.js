@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Pie, Bar } from "react-chartjs-2";
@@ -25,26 +25,26 @@ function Dashboard() {
 
   // 🔐 Protect route
   useEffect(() => {
-    if (!token) {
-      alert("Please login first");
-      navigate("/");
-    } else {
-      fetchMoods();
-    }
-  }, [token, navigate]);
+  if (!token) {
+    alert("Please login first");
+    navigate("/");
+  } else {
+    fetchMoods();
+  }
+}, [token, navigate, fetchMoods]);
 
   // ================= MOODS =================
 
-  const fetchMoods = async () => {
-    try {
-      const res = await axios.get(`${API_URL}/getMoods`, {
-        headers: { Authorization: token },
-      });
-      setMoods(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const fetchMoods = useCallback(async () => {
+  try {
+    const res = await axios.get(`${API_URL}/getMoods`, {
+      headers: { Authorization: token },
+    });
+    setMoods(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+}, [token]);
 
   const addMood = async () => {
     if (!mood.trim()) return alert("Mood cannot be empty");
