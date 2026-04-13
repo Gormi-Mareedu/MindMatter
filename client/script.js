@@ -25,7 +25,7 @@ if (loginForm) {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/login", {
+            const res = await fetch("https://mindmatter-jzke.onrender.com/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -62,7 +62,7 @@ if (registerForm) {
         const password = document.getElementById("password").value;
 
         try {
-            const res = await fetch("http://localhost:5000/register", {
+            const res = await fetch("https://mindmatter-jzke.onrender.com/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -85,7 +85,7 @@ async function getDashboard() {
     const token = localStorage.getItem("token");
 
     try {
-        const res = await fetch("http://localhost:5000/dashboard", {
+        const res = await fetch("https://mindmatter-jzke.onrender.com/dashboard", {
             headers: {
                 Authorization: token
             }
@@ -107,7 +107,7 @@ async function addMood() {
     console.log("Token:", token);
 
     try {
-        const res = await fetch("http://localhost:5000/addMood", {
+        const res = await fetch("https://mindmatter-jzke.onrender.com/addMood", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -133,7 +133,7 @@ async function addMood() {
 async function getMoods() {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/getMoods", {
+    const res = await fetch("https://mindmatter-jzke.onrender.com/getMoods", {
         headers: {
             "Authorization": token
         }
@@ -161,7 +161,7 @@ async function getMoods() {
 async function deleteMood(id) {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`http://localhost:5000/deleteMood/${id}`, {
+    const res = await fetch(`https://mindmatter-jzke.onrender.com/deleteMood/${id}`, {
         method: "DELETE",
         headers: {
             Authorization: token
@@ -176,7 +176,7 @@ async function deleteMood(id) {
 async function updateMood(id, mood, note) {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`http://localhost:5000/updateMood/${id}`, {
+    const res = await fetch(`https://mindmatter-jzke.onrender.com/updateMood/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
