@@ -29,7 +29,9 @@ function Dashboard() {
   const [recommendation, setRecommendation] = useState("");
   const [correlation, setCorrelation] = useState("");
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token =
+  localStorage.getItem("token") ||
+  sessionStorage.getItem("token");
 
   // ================= FETCH =================
   const fetchAll = useCallback(async () => {

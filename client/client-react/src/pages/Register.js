@@ -9,11 +9,11 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  // 🔥 VALIDATION
   const validate = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -23,12 +23,12 @@ function Register() {
     }
 
     if (!emailRegex.test(email)) {
-      toast.error("Invalid email format");
+      toast.error("Invalid email");
       return false;
     }
 
     if (password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+      toast.error("Password must be at least 6 chars");
       return false;
     }
 
@@ -50,9 +50,9 @@ function Register() {
       });
 
       toast.success("Registered successfully");
-      navigate("/");
+      navigate("/login"); // ✅ FIXED
 
-    } catch (error) {
+    } catch {
       toast.error("Registration failed");
     } finally {
       setLoading(false);
@@ -60,37 +60,55 @@ function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form onSubmit={handleRegister} className="bg-white p-6 rounded shadow w-80">
-        <h2 className="text-xl font-bold mb-4">Register</h2>
+    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-green-100 to-blue-200">
+      <form onSubmit={handleRegister} className="bg-white p-6 rounded-xl shadow-lg w-80">
+        <h2 className="text-xl font-bold mb-4 text-center">Register</h2>
 
         <input
-          className="border p-2 w-full mb-2"
+          className="border p-2 w-full mb-2 rounded"
           placeholder="Name"
           onChange={(e) => setName(e.target.value)}
         />
 
         <input
-          className="border p-2 w-full mb-2"
+          className="border p-2 w-full mb-2 rounded"
           type="email"
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
-          className="border p-2 w-full mb-2"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="relative mb-2">
+          <input
+            className="border p-2 w-full rounded"
+            type={showPass ? "text" : "password"}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
+            className="absolute right-3 top-2 cursor-pointer text-sm text-gray-600"
+            onClick={() => setShowPass(!showPass)}
+          >
+            {showPass ? "Hide" : "Show"}
+          </span>
+        </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="bg-green-500 text-white w-full py-2 rounded"
+          className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded"
         >
           {loading ? "Registering..." : "Register"}
         </button>
+
+        <p className="text-sm mt-3 text-center">
+          Already have an account?{" "}
+          <span
+            className="text-blue-600 cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
+        </p>
       </form>
     </div>
   );
