@@ -4,7 +4,7 @@ if (window.location.pathname.includes("dashboard.html")) {
 
     if (!token) {
         alert("Please login first");
-        window.location.href = "index.html";
+        window.location.href = "register.html";
     } else {
         getMoods();
     }
@@ -23,6 +23,10 @@ if (loginForm) {
             alert("All fields are required");
             return;
         }
+
+        const submitBtn = loginForm.querySelector("button[type='submit']");
+        submitBtn.innerText = "Logging in... (Server waking up, may take 50s)";
+        submitBtn.disabled = true;
 
         try {
             const res = await fetch("https://mindmatter-jzke.onrender.com/login", {
@@ -45,7 +49,10 @@ if (loginForm) {
 
         } catch (error) {
             console.log(error);
-            alert("Error connecting to server");
+            alert("Error connecting to server. If it's your first try, the server might be waking up. Please try again.");
+        } finally {
+            submitBtn.innerText = "Login";
+            submitBtn.disabled = false;
         }
     });
 }
@@ -61,6 +68,10 @@ if (registerForm) {
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
+        const submitBtn = registerForm.querySelector("button[type='submit']");
+        submitBtn.innerText = "Registering... (Server waking up, may take 50s)";
+        submitBtn.disabled = true;
+
         try {
             const res = await fetch("https://mindmatter-jzke.onrender.com/register", {
                 method: "POST",
@@ -75,7 +86,10 @@ if (registerForm) {
 
         } catch (error) {
             console.log(error);
-            alert("Error connecting to server");
+            alert("Error connecting to server. If it's your first try, the server might be waking up. Please try again.");
+        } finally {
+            submitBtn.innerText = "Register";
+            submitBtn.disabled = false;
         }
     });
 }
