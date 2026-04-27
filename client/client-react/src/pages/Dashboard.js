@@ -122,9 +122,22 @@ function Dashboard() {
     moodCount[m.mood] = (moodCount[m.mood] || 0) + 1;
   });
 
+  const moodColors = {
+    happy: "#4ade80",
+    sad: "#60a5fa",
+    anxious: "#fbbf24",
+    angry: "#f87171",
+    calm: "#818cf8",
+    neutral: "#9ca3af"
+  };
+
   const chartData = {
-    labels: Object.keys(moodCount),
-    datasets: [{ data: Object.values(moodCount) }],
+    labels: Object.keys(moodCount).map(m => m.charAt(0).toUpperCase() + m.slice(1)),
+    datasets: [{ 
+      data: Object.values(moodCount),
+      backgroundColor: Object.keys(moodCount).map(m => moodColors[m] || "#cbd5e1"),
+      hoverOffset: 4
+    }],
   };
   const moodScore = {
   happy: 5,
@@ -139,12 +152,17 @@ const trendData = moods.slice(0, 7).reverse();
 
 const lineData = {
   labels: trendData.map(m =>
-    new Date(m.createdAt).toLocaleDateString()
+    new Date(m.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
   ),
   datasets: [
     {
       label: "Mood Trend",
       data: trendData.map(m => moodScore[m.mood] || 3),
+      borderColor: "#667eea",
+      backgroundColor: "rgba(102, 126, 234, 0.2)",
+      pointBackgroundColor: "#764ba2",
+      tension: 0.3,
+      fill: true
     },
   ],
 };
