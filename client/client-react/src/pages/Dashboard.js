@@ -80,7 +80,7 @@ function Dashboard() {
     try {
       await axios.post(
         `${API_URL}/addMood`,
-        { mood, energy, intensity, note },
+        { mood, energy, intensity: Number(intensity) || 3, note },
         { headers: { Authorization: token } }
       );
 
@@ -90,8 +90,9 @@ function Dashboard() {
       setIntensity(3);
 
       fetchAll();
-    } catch {
-      toast.error("Error saving mood");
+    } catch (err) {
+      console.error("Error saving mood:", err.response?.data || err.message);
+      toast.error(err.response?.data?.message || "Error saving mood");
     }
   };
 
