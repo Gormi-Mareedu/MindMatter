@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const API_URL = "https://mindmatter-jzke.onrender.com";
 
 function AuthPage() {
-  const [tab, setTab] = useState("login"); // "login" or "register"
+  const location = useLocation();
+  const [tab, setTab] = useState(location.pathname === "/register" ? "register" : "login");
+
+  useEffect(() => {
+    if (location.pathname === "/register") setTab("register");
+    else if (location.pathname === "/login") setTab("login");
+  }, [location.pathname]);
+
   const navigate = useNavigate();
 
   // ─── Login state ───

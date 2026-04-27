@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import Home from "./pages/Home";
 import AuthPage from "./pages/AuthPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,7 +15,7 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} />
 
       <Routes>
-        <Route path="/" element={<AuthPage />} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<AuthPage />} />
         <Route path="/login" element={<AuthPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
