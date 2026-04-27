@@ -43,6 +43,8 @@ function AuthPage() {
       });
 
       if (res.data.token) {
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
         const storage = remember ? localStorage : sessionStorage;
         storage.setItem("token", res.data.token);
         toast.success("Login successful!");
